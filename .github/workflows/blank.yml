@@ -30,7 +30,7 @@ jobs:
       - name: printf
         shell: bash
         run: |
-          printf '%s\n' \
+          printf '%s' \
             '::error title=(PRINTF) Action not built:: ' \
             'This TypeScript action cannot be used before building within a Node.js environment. ' \
             'Maybe you are currently using a non-tagging branch such as "master". ' \
