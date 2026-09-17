@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           cat <<'EOF'
-          ::error title=Action not built::
+          ::error title=(HEREDOC)Action not built::
           This TypeScript action cannot be used before building within Node.js environment.
           Maybe you are currently using non-tagging branches, for example, the "master" branch.
           Only v* branches have built JavaScript action file.
@@ -30,7 +30,7 @@ jobs:
         shell: bash
         run: |
           printf '%s\n' \
-            '::error title=Action not built:: ' \
+            '::error title=(PRINTF) Action not built:: ' \
             'This TypeScript action cannot be used before building within a Node.js environment. ' \
             'Maybe you are currently using a non-tagging branch such as "master". ' \
             'Only v* branches have a built JavaScript action file. ' \
@@ -38,7 +38,7 @@ jobs:
       - name: continuous string
         shell: bash
         run: |
-          echo '::error title=Action not built::
+          echo '::error title=(CS) Action not built::
           This TypeScript action cannot be used before building within Node.js environment.
           Maybe you are currently using non-tagging branches, for example, the "master" branch.
           Only v* branches have built JavaScript action file.
@@ -49,4 +49,19 @@ jobs:
       - name: one string
         shell: bash
         run: |
-          echo '::error title=Action not built:: This TypeScript action cannot be used before building within Node.js environment. Maybe you are currently using non-tagging branches, for example, the "master" branch. Only v* branches have built JavaScript action file. If you would like to test unreleased changes, please refer to the CI workflows in our repository: https://github.com/jurplel/install-qt-action. Exiting...'
+          echo '::error title=(One) Action not built:: This TypeScript action cannot be used before building within Node.js environment. Maybe you are currently using non-tagging branches, for example, the "master" branch. Only v* branches have built JavaScript action file. If you would like to test unreleased changes, please refer to the CI workflows in our repository: https://github.com/jurplel/install-qt-action. Exiting...'
+
+      - name: Python
+        shell: python
+        run: |
+          from pathlib import Path
+    
+          message = ' '.join((
+            'This TypeScript action cannot be used before building within Node.js environment.',
+            'Maybe you are currently using non-tagging branches, for example, the "master" branch.',
+            'Only v* branches have built JavaScript action file.',
+            'If you would like to test unreleased changes, please refer to the CI workflows',
+            'in our repository: https://github.com/jurplel/install-qt-action .',
+            'Exiting...',
+          ))
+          print(f'::error title=(PY) Action not built::{message}')
