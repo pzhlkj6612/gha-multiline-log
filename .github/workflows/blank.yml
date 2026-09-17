@@ -51,6 +51,21 @@ jobs:
           )
           printf '::error title=(PRINTF2) Action not built::%s\n' "$message"
 
+      - name: heredoc-var
+        shell: bash
+        run: |
+          message=$(
+            cat <<EOF
+              'This TypeScript action cannot be used before building within Node.js environment. 
+              'Maybe you are currently using non-tagging branches, for example, the "master" branch. 
+              'Only v* branches have built JavaScript action file. 
+              'If you would like to test unreleased changes, please refer to the CI workflows 
+              'in our repository: https://github.com/jurplel/install-qt-action . 
+              'Exiting... 
+          EOF
+          )
+          printf '::error title=(HEREDOC_VAR) Action not built::%s\n' "$message"
+
       - name: continuous string
         shell: bash
         run: |
