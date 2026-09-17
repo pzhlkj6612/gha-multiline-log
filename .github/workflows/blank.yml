@@ -1,0 +1,37 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+    steps:
+      - name: heredoc
+        shell: bash
+        run: |
+          cat <<'EOF'
+          ::error title=Action not built::
+          This TypeScript action cannot be used before building within Node.js environment.
+          Maybe you are currently using non-tagging branches, for example, the "master" branch.
+          Only v* branches have built JavaScript action file.
+          If you would like to test unreleased changes, please refer to the CI workflows
+          in our repository: https://github.com/jurplel/install-qt-action .
+          Exiting...
+          EOF
+      - name: printf
+        shell: bash
+        run: |
+          printf '%s\n' \
+            '::error title=Action not built:: ' \
+            'This TypeScript action cannot be used before building within a Node.js environment. ' \
+            'Maybe you are currently using a non-tagging branch such as "master". ' \
+            'Only v* branches have a built JavaScript action file. ' \
+            'For unreleased changes, refer to the repository CI workflows. '
