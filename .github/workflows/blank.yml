@@ -26,6 +26,7 @@ jobs:
           in our repository: https://github.com/jurplel/install-qt-action .
           Exiting...
           EOF
+
       - name: printf
         shell: bash
         run: |
@@ -35,6 +36,19 @@ jobs:
             'Maybe you are currently using a non-tagging branch such as "master". ' \
             'Only v* branches have a built JavaScript action file. ' \
             'For unreleased changes, refer to the repository CI workflows. '
+
+      - name: printf2
+        shell: bash
+        run: |
+          message=$(
+            printf '%s' \
+              'This TypeScript action cannot be used before building within a Node.js environment. ' \
+              'Maybe you are currently using a non-tagging branch such as "master". ' \
+              'Only v* branches have a built JavaScript action file. ' \
+              'For unreleased changes, refer to the repository CI workflows. '
+          )
+          printf '::error title=(PRINTF2) Action not built::%s\n' "$message"
+
       - name: continuous string
         shell: bash
         run: |
